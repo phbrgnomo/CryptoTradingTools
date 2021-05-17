@@ -5,3 +5,14 @@ This is a repository for my experiments on creating tools that will help me with
 What this repository isn't:
 - A Trading bot
 - An automated strategy
+
+## packages needed
+
+To install these packages run `pip install <package name>`
+
+```
+python-binance
+twisted
+pandas
+bta-lib
+```

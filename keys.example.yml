@@ -1,0 +1,8 @@
+
+binance:
+  binance_api_key: yourkey
+  binance_api_secret: yourkey
+
+bitmex:
+  bitmex_api_key:
+  bitmex_api_secret:

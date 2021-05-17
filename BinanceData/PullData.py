@@ -3,23 +3,25 @@ import pandas as pd
 import math
 import os.path
 import time
+from simplefunctions.load_keys import load_keys
 from bitmex import bitmex
-from binance.client import Client
 from datetime import timedelta, datetime
 from dateutil import parser
 from tqdm import tqdm_notebook #(Optional, used for progress-bars)
 
 ### API
-bitmex_api_key = '[REDACTED]'    #Enter your own API-key here
-bitmex_api_secret = '[REDACTED]' #Enter your own API-secret here
-binance_api_key = ''    #Enter your own API-key here
-binance_api_secret = '' #Enter your own API-secret here
+bitmex_api_key = ''    #Enter your own API-key on keys.yml
+bitmex_api_secret = '' #Enter your own API-secret on keys.yml
+binance_api_key = ''    #Enter your own API-key on keys.yml
+binance_api_secret = ''  #Enter your API-secret on keys.yml
+
+
 
 ### CONSTANTS
 binsizes = {"1m": 1, "5m": 5, "1h": 60, "1d": 1440}
 batch_size = 750
 bitmex_client = bitmex(test=False, api_key=bitmex_api_key, api_secret=bitmex_api_secret)
-binance_client = Client(api_key=binance_api_key, api_secret=binance_api_secret)
+binance_client = load_keys('binance')
 
 
 ### FUNCTIONS
@@ -41,6 +43,7 @@ def get_all_binance(symbol, kline_size, save = False):
     if oldest_point == datetime.strptime('1 Jan 2017', '%d %b %Y'): print('Downloading all available %s data for %s. Be patient..!' % (kline_size, symbol))
     else: print('Downloading %d minutes of new data available for %s, i.e. %d instances of %s data.' % (delta_min, symbol, available_data, kline_size))
     klines = binance_client.get_historical_klines(symbol, kline_size, oldest_point.strftime("%d %b %Y %H:%M:%S"), newest_point.strftime("%d %b %Y %H:%M:%S"))
+    print(klines)
     data = pd.DataFrame(klines, columns = ['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore' ])
     data['timestamp'] = pd.to_datetime(data['timestamp'], unit='ms')
     if len(data_df) > 0:
@@ -73,5 +76,5 @@ def get_all_bitmex(symbol, kline_size, save = False):
     print('All caught up..!')
     return data_df
 
-data = get_all_binance("BTCUSDT", "1h", save=True)
+# data = get_all_binance("FRONTBUSD", "1m", save=True)
 
