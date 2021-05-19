@@ -12,7 +12,7 @@ To install these packages run `pip install <package name>`
 
 ```
 python-binance
+bta-lib
 twisted
 pandas
-bta-lib
 ```
