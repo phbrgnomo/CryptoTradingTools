@@ -16,3 +16,5 @@ bta-lib
 twisted
 pandas
 ```
+
+[![Feature Requests](https://feathub.com/phbrgnomo/CryptoTradingTools?format=svg)](https://feathub.com/phbrgnomo/CryptoTradingTools)
