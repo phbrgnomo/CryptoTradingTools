@@ -38,4 +38,4 @@ print(data)
 
 # Calculate twap
 twap = data['av_row'].mean()
-print(twap)
+print('TWAP price on the last month:', twap)

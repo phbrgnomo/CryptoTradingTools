@@ -42,5 +42,5 @@ if show_balance == False:
 # get balances for margin account
 # print(client.get_margin_account())
 
-# avgprice = client.get_avg_price(symbol="RLCETH")
+# avgprice = client.get_avg_price(symbol="BTCUSDT")
 # print(avgprice)
