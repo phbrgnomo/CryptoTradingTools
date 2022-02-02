@@ -1,8 +1,7 @@
-from simplefunctions.load_keys import load_keys
-import json
-from datetime import datetime
+from utils.keys import load_keys
+import pandas as pd
 
-
+# Load api keys from keys.yml
 client = load_keys('binance')
 
 asset = 'BTCUSDT'
@@ -17,12 +16,15 @@ print(f'Earliest timestamp for {asset} on the {timeframe} timeframe:', timestamp
 # request historical candle (or klines) data
 bars = client.get_historical_klines(asset, timeframe, timestamp, limit=1000)
 
-# option 1 - save to file using json method
-with open(f'{asset}_bars.json', 'w') as e:
-    json.dump(bars, e)
+# keep 5 first fields (Date, open, high, low, close)
+for line in bars:
+    del line[5:]
 
-# option 5 - save to file using json method keeping 5 first fields (Date, open, high, low, close)
-with open(f'{asset}_bars2.json', 'w') as e:
-    for line in bars:
-        del line[5:]
-    json.dump(bars, e)
+# option 4 - create a Pandas DataFrame and export to CSV
+asset_df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close'])
+asset_df.set_index('date', inplace=True)
+print(asset_df.head())
+
+# export DataFrame to csv
+asset_df.to_csv(f'{asset}_bars3.csv')
+

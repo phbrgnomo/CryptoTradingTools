@@ -1,5 +1,5 @@
-from simplefunctions.load_keys import load_keys
-from simplefunctions.questions import yn
+from utils.keys import load_keys
+from utils.questions import yn
 
 ### API
 client = load_keys('binance')

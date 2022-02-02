@@ -3,12 +3,11 @@
 This is a repository for my experiments on creating tools that will help me with crypto trading.
 
 What this repository isn't:
+
 - A Trading bot
 - An automated strategy
 
 ## packages needed
-
-To install these packages run `pip install <package name>`
 
 ```
 python-binance
@@ -17,4 +16,4 @@ twisted
 pandas
 ```
 
-[![Feature Requests](https://feathub.com/phbrgnomo/CryptoTradingTools?format=svg)](https://feathub.com/phbrgnomo/CryptoTradingTools)
+To install these packages run `pip install -r requirements.txt`

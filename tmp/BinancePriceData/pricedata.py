@@ -1,4 +1,4 @@
-from simplefunctions.load_keys import load_keys
+from utils.keys import load_keys
 
 ### API
 client = load_keys('binance')

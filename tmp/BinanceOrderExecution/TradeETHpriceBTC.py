@@ -1,4 +1,4 @@
-from simplefunctions.load_keys import load_keys, load_websocket_keys
+from utils.keys import load_keys, load_websocket_keys
 from time import sleep
 from binance.exceptions import BinanceAPIException, BinanceOrderException
 from binance.websockets import BinanceSocketManager

@@ -1,4 +1,3 @@
-
 # Ask Yes and No questions
 def yn(question):
     while True:

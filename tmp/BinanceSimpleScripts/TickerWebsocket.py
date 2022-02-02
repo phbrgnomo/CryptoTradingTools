@@ -1,4 +1,9 @@
-from simplefunctions.load_keys import load_websocket_keys
+import os, sys
+
+p = os.path.abspath('.')
+sys.path.insert(1, p)
+
+from utils.keys import load_websocket_keys
 
 # set variables
 asset='ETHUSDT'

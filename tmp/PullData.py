@@ -3,19 +3,14 @@ import pandas as pd
 import math
 import os.path
 import time
-from simplefunctions.load_keys import load_keys
-from bitmex import bitmex
+from utils.keys import load_keys
 from datetime import timedelta, datetime
 from dateutil import parser
 from tqdm import tqdm_notebook #(Optional, used for progress-bars)
 
 ### API
-bitmex_api_key = ''    #Enter your own API-key on keys.yml
-bitmex_api_secret = '' #Enter your own API-secret on keys.yml
 binance_api_key = ''    #Enter your own API-key on keys.yml
 binance_api_secret = ''  #Enter your API-secret on keys.yml
-
-
 
 ### CONSTANTS
 binsizes = {"1m": 1, "5m": 5, "1h": 60, "1d": 1440}
@@ -52,27 +47,6 @@ def get_all_binance(symbol, kline_size, save = False):
     else: data_df = data
     data_df.set_index('timestamp', inplace=True)
     if save: data_df.to_csv(filename)
-    print('All caught up..!')
-    return data_df
-
-def get_all_bitmex(symbol, kline_size, save = False):
-    filename = '%s-%s-data.csv' % (symbol, kline_size)
-    if os.path.isfile(filename): data_df = pd.read_csv(filename)
-    else: data_df = pd.DataFrame()
-    oldest_point, newest_point = minutes_of_new_data(symbol, kline_size, data_df, source = "bitmex")
-    delta_min = (newest_point - oldest_point).total_seconds()/60
-    available_data = math.ceil(delta_min/binsizes[kline_size])
-    rounds = math.ceil(available_data / batch_size)
-    if rounds > 0:
-        print('Downloading %d minutes of new data available for %s, i.e. %d instances of %s data in %d rounds.' % (delta_min, symbol, available_data, kline_size, rounds))
-        for round_num in tqdm_notebook(range(rounds)):
-            time.sleep(1)
-            new_time = (oldest_point + timedelta(minutes = round_num * batch_size * binsizes[kline_size]))
-            data = bitmex_client.Trade.Trade_getBucketed(symbol=symbol, binSize=kline_size, count=batch_size, startTime = new_time).result()[0]
-            temp_df = pd.DataFrame(data)
-            data_df = data_df.append(temp_df)
-    data_df.set_index('timestamp', inplace=True)
-    if save and rounds > 0: data_df.to_csv(filename)
     print('All caught up..!')
     return data_df
 
