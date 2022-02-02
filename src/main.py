@@ -17,7 +17,7 @@ if __name__ == "__main__":
     # store open orders from the pairs as a pandas dataframe
     open = open_orders.list_open_orders(binance_api, pairs)
 
-    # calculate weighted average price
+    # merge all open orders into a single order on each side
   
     open['value'] = open['size'].astype(float) * open['price'].astype(float)
 
